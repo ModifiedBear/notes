@@ -1,0 +1,109 @@
+\documentclass[letterpaper,12pt]{article}
+\input{preamble}
+
+% generics line 5: title, line 6: topic, line 7: date
+\title{Fields}
+\topic{Condensed Matter}
+\date{Jul -- 14 -- 2024}
+
+
+
+\author{Alberto Ruiz-Biestro}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\thispagestyle{empty}
+
+\clearpage\pagestyle{fancy}
+\section{Calculus of variations}
+
+\subsection{Functional Derivative}
+
+\mrem{Definitions}{%
+  \begin{outline}
+    \1 \textbf{Field}: a map from a base manifold $\mcM$ into a target space $T$.
+    \1 \textbf{Functional}: assigns each $\varphi$ a number $S[\varphi]$, i.e. it maps a field onto $\bbR$. Formally, it is defined through the map
+    \[J:C^\infty(\bbR)\rightarrow\bbR\]
+    \[\qq{where}J[y]=\int_{x_1}^{x_2}\dd{x}\,f(x,y,y',y'',\cdots,y^{(n)})\]
+  \end{outline}
+}
+
+\begin{table}[h!]
+  \centering
+  \begin{tabular}{l l l}
+    \hline\hline
+    Entity & Discrete & Continuous\\ \hline
+    Argument & vector $\vb{f}$ & function $f$\\
+    Differential & $\dd{F_{\vb{f}}}(\vb{g})$ & $\delta F_{f}(g)$\\
+    Cartesian basis & $\vb{e}_n$ & $\delta_x$\\
+    Scalar product & \(\sum_nf_ng_n\) & \(\int\dd{x}f(x)g(x)\) \\
+    Derivative & \(\pdv*{f_n}F(\vb{f})\) & \(\delta F[f]/\delta f(x)\) \\\hline\hline
+  \end{tabular}
+\end{table}
+
+A functional derivative (also called a \emph{Frechet} derivative) is the generalization of a directional derivative $\pdv*{J}{y_i}$ for a continuum of coordinates $y_i\rightarrow y(x)$. Similar to multivariate calculus, finding the function that gives the extrema of $J[y]$ amounts to setting its functional derivative to zero.
+
+\begin{equation}
+\delta J=\sum_{i}\pdv{J}{y_i}\delta y_i\rightarrow\int_{x_1}^{x_2}\dd{x}\qty(\frac{\delta J}{\delta y(x)})\,\delta y(x)
+\end{equation}
+
+For the general case where $f$ depends on $n$ derivatives of $y(x)$, one has
+\begin{equation}
+  \frac{\delta J}{\delta y(x)}=\pdv{f}{y}-\dv{x}\qty(\pdv{f}{y'})
+  +\dv[2]{x}\qty(\pdv{f}{y''})-\dv[3]{x}\qty(\pdv{f}{y'''})+\cdots=0.
+\end{equation}
+Relating the functional derivative to partial derivatives is essential for analyzing problems. In Lagrangian mechanics, the action functional and the functional derivative take the form of
+\mnote{Lagrangian functional}{%
+\begin{equation}
+  S[q]=\int_{t_0}^{t_f}\dd{t}L(t,q^i,{q'}^{i}),\qquad \frac{\delta L}{\delta q(t)}=\dv{t}\qty(\pdv{L}{\dot{q}})-\pdv{L}{q}=0
+\end{equation}
+}
+
+
+\subsection{Continuous systems}
+
+Continuum systems and field theories require infinite degrees of freedom. For notational purposes, we define
+\begin{equation}
+  \boxed{\varphi_\mu\equiv\pdv{\varphi}{x^\mu}}.
+\end{equation}
+The Lagrangians evaluated over a manifold $\mcM$ will usually take the form of
+\begin{equation}
+  \boxed{S[\varphi]=\int_{\mcM}\dd{t}L=\int_{\mcM}\dd[m]{x}\mcL(x^\mu,\varphi,\varphi_\mu)
+  }
+\end{equation}
+
+\mnote{Vanishing at boundary}{We assume the field variation vanishes at the boundary, $\theta\big|_{\partial\mcM}=\delta\varphi\big|_{\partial\mcM}=0$. This eliminates any boundary integrals when integrating by parts. However, this vanishing need not be always the case.}
+
+
+\mrem{Divergence theorem}{Using the established notation, the divergence theorem looks like this
+  \[\int_{\Omega}\dd[m]{x}\qty(\pdv{A^\mu}{x^\mu})=\int_{\partial \Omega}\dd{S}A^\mu n_\mu\]
+}
+
+\mnote{First Principles}{In continuum problems, it is often easier to 
+derive the equations of motion from \emph{first principles}, rather 
+than using the continuum Euler-Lagrange equations,
+\begin{equation}
+  \frac{\delta S}{\delta \varphi^i(x)}=\pdv{\mcL}{\varphi^i(x)}-\pdv{x^\mu}\qty(\pdv{\mcL}{\varphi^i_\mu(x)}).
+\end{equation}
+Variating by hand will usually require the following identity, 
+\[\boxed{\delta(\varphi_\mu(x))=\pdv{x^\mu}\delta\varphi(x)}.\]
+}
+
+\subsection{Noether's Theorem}
+\mrem{Continuum Noether's Theorem}{A continuous symmetry entails a classically conserved current.}
+
+\mnote{Momenta}{%
+  \begin{outline}
+    Imagine a wave on a string with fixed ends. The distinction between momentum and pseudo-momentum is appreciated by analyzing the associated symmetry,
+    \1 \(\qq{Pseudo momentum}\Leftrightarrow \qq{invariance under}y(x)\rightarrow y(x-a)\qq{(loc. of wave)}\)
+    \1 \(\qq{Momentum}\Leftrightarrow \qq{invariance under translation of whole system}\)
+  \end{outline}
+}
+
+\subsection{Electrodynamics}
+More fundamental than Maxwell's equations, for modern electrodynamics, is the concept of \textbf{symmetry}; an electromagnetic theory must be Lorenz invariant. We restrict our analysis to vacuum theory, where $\vb{E}=\vb{D}$ and $\vb{B}=\vb{H}$.
+
+\section{Quantizing fields}
+
+\end{document}

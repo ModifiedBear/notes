@@ -1,0 +1,258 @@
+% preamble
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{physics}
+\usepackage[bb=boondox,bbscaled=1.0]{mathalfa}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{graphicx}
+\usepackage{xcolor}
+% \usepackage{newtxtext,newtxmath}
+%\usepackage{arev}
+\renewcommand*\familydefault{\sfdefault} 
+% \usepackage{sansmathfonts}
+% \usepackage{newtxmath}
+\usepackage[top=1in, bottom=1in, left=1in, right=1in,nomarginpar]{geometry}
+\usepackage[most,many,breakable]{tcolorbox}
+\usepackage{dsfont}
+\usepackage{outlines}
+
+% paragraphs
+\setlength{\parskip}{1em}
+\setlength{\parskip}{1em}
+
+% header
+\usepackage{fancyhdr}
+\setlength{\headheight}{1.5em}
+\fancyfoot{}
+\fancyhead{}
+\fancyhead[L]{Notes on \textbf{\@topic}}
+\fancyhead[R]{\thepage}
+%\fancyfoot[CE,RO]{\thepage}
+%\fancyfoot[CE,CO]{\thepage}
+
+% commands 
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\mprop}[2]{\begin{Prop}{#1}{}#2\end{Prop}}
+\newcommand{\mnote}[2]{\begin{Note}{#1}{}#2\end{Note}}
+\newcommand{\mrem}[2]{\begin{Remark}{#1}{}#2\end{Remark}}
+\newcommand{\mexam}[2]{\begin{Example}{#1}{}#2\end{Example}}
+
+% definitions
+\def\topic#1{\gdef\@topic{#1}}
+\def\@topic{\@latex@warning@no@line{No \noexpand\topic given}}
+
+% color boxes
+\definecolor{mypropbg}{HTML}{f2fbfc}
+\definecolor{mypropfr}{HTML}{191971}
+\definecolor{mynotebg}{HTML}{f2fbfc}
+\definecolor{mynotefr}{HTML}{191971}
+\definecolor{myexamplebg}{HTML}{EFEFEF}
+\definecolor{myexamplefr}{HTML}{999999}
+\definecolor{myexampleti}{HTML}{444444}
+
+\definecolor{wongOrange}{RGB}{230,159,000}
+\definecolor{wongOrangeDark}{RGB}{175,120,000}
+\definecolor{wongBlue}{RGB}{000,114,178}
+\definecolor{wongVermillion}{RGB}{213,094,000}
+\definecolor{wongGreen}{RGB}{000,158,115}
+
+%================================
+% NOTE
+%================================
+
+\tcbuselibrary{theorems,skins,hooks}
+\newtcbtheorem[number within=section]{Note}{Note}
+{%
+	enhanced,
+	breakable,
+	colback = mynotebg,
+	frame hidden,
+	boxrule = 0sp,
+	borderline west = {2pt}{0pt}{mynotefr},
+	sharp corners,
+	detach title,
+	before upper = \tcbtitle\par\smallskip,
+	coltitle = mynotefr,
+	fonttitle = \bfseries\sffamily,
+	description font = \mdseries,
+	separator sign none,
+	segmentation style={solid, mynotefr},
+}
+{th}
+
+%================================
+% REMARK
+%================================
+
+\tcbuselibrary{theorems,skins,hooks}
+\newtcbtheorem[number within=section]{Remark}{Remark}
+{%
+	enhanced,
+	breakable,
+	colback = wongOrange!30!white,
+	frame hidden,
+	boxrule = 0sp,
+	borderline west = {2pt}{0pt}{wongOrange!90!black},
+	sharp corners,
+	detach title,
+	before upper = \tcbtitle\par\smallskip,
+	coltitle = wongOrange!60!black,
+	fonttitle = \bfseries\sffamily,
+	description font = \mdseries,
+	separator sign none,
+	segmentation style={solid, wongOrange!90!black},
+}
+{th}
+
+%================================
+% EXAMPLE BOX
+%================================
+
+\newtcbtheorem[number within=section]{Example}{Example}
+{%
+	colback = myexamplebg
+	,breakable
+	,colframe = myexamplefr
+	,coltitle = myexampleti
+	,boxrule = 1pt
+	,sharp corners
+	,detach title
+	,before upper=\tcbtitle\par\smallskip
+	,fonttitle = \bfseries
+	,description font = \mdseries
+	,separator sign none
+	,description delimiters parenthesis
+}
+{ex}
+
+
+%================================
+% PROPOSITION
+%================================
+
+\tcbuselibrary{theorems,skins,hooks}
+\newtcbtheorem[number within=section]{Prop}{Proposition}
+{%
+	enhanced,
+	breakable,
+	colback = mypropbg,
+	frame hidden,
+	boxrule = 0sp,
+	borderline west = {2pt}{0pt}{mypropfr},
+	sharp corners,
+	detach title,
+	before upper = \tcbtitle\par\smallskip,
+	coltitle = mypropfr,
+	fonttitle = \bfseries\sffamily,
+	description font = \mdseries,
+	separator sign none,
+	segmentation style={solid, mypropfr},
+}
+{th}
+
+\tcbuselibrary{theorems,skins,hooks}
+\newtcbtheorem[number within=chapter]{prop}{Proposition}
+{%
+	enhanced,
+	breakable,
+	colback = mypropbg,
+	frame hidden,
+	boxrule = 0sp,
+	borderline west = {2pt}{0pt}{mypropfr},
+	sharp corners,
+	detach title,
+	before upper = \tcbtitle\par\smallskip,
+	coltitle = mypropfr,
+	fonttitle = \bfseries\sffamily,
+	description font = \mdseries,
+	separator sign none,
+	segmentation style={solid, mypropfr},
+}
+{th}
+
+
+% math symbols
+\newcommand*{\imag}{\mathrm{i}}
+
+% math letters
+%---------------------------------------
+% BlackBoard Math Fonts :-
+%---------------------------------------
+
+%Captital Letters
+\newcommand{\bbA}{\mathbb{A}}	\newcommand{\bbB}{\mathbb{B}}
+\newcommand{\bbC}{\mathbb{C}}	\newcommand{\bbD}{\mathbb{D}}
+\newcommand{\bbE}{\mathbb{E}}	\newcommand{\bbF}{\mathbb{F}}
+\newcommand{\bbG}{\mathbb{G}}	\newcommand{\bbH}{\mathbb{H}}
+\newcommand{\bbI}{\mathbb{I}}	\newcommand{\bbJ}{\mathbb{J}}
+\newcommand{\bbK}{\mathbb{K}}	\newcommand{\bbL}{\mathbb{L}}
+\newcommand{\bbM}{\mathbb{M}}	\newcommand{\bbN}{\mathbb{N}}
+\newcommand{\bbO}{\mathbb{O}}	\newcommand{\bbP}{\mathbb{P}}
+\newcommand{\bbQ}{\mathbb{Q}}	\newcommand{\bbR}{\mathbb{R}}
+\newcommand{\bbS}{\mathbb{S}}	\newcommand{\bbT}{\mathbb{T}}
+\newcommand{\bbU}{\mathbb{U}}	\newcommand{\bbV}{\mathbb{V}}
+\newcommand{\bbW}{\mathbb{W}}	\newcommand{\bbX}{\mathbb{X}}
+\newcommand{\bbY}{\mathbb{Y}}	\newcommand{\bbZ}{\mathbb{Z}}
+
+%---------------------------------------
+% MathCal Fonts :-
+%---------------------------------------
+
+%Captital Letters
+\newcommand{\mcA}{\mathcal{A}}	\newcommand{\mcB}{\mathcal{B}}
+\newcommand{\mcC}{\mathcal{C}}	\newcommand{\mcD}{\mathcal{D}}
+\newcommand{\mcE}{\mathcal{E}}	\newcommand{\mcF}{\mathcal{F}}
+\newcommand{\mcG}{\mathcal{G}}	\newcommand{\mcH}{\mathcal{H}}
+\newcommand{\mcI}{\mathcal{I}}	\newcommand{\mcJ}{\mathcal{J}}
+\newcommand{\mcK}{\mathcal{K}}	\newcommand{\mcL}{\mathcal{L}}
+\newcommand{\mcM}{\mathcal{M}}	\newcommand{\mcN}{\mathcal{N}}
+\newcommand{\mcO}{\mathcal{O}}	\newcommand{\mcP}{\mathcal{P}}
+\newcommand{\mcQ}{\mathcal{Q}}	\newcommand{\mcR}{\mathcal{R}}
+\newcommand{\mcS}{\mathcal{S}}	\newcommand{\mcT}{\mathcal{T}}
+\newcommand{\mcU}{\mathcal{U}}	\newcommand{\mcV}{\mathcal{V}}
+\newcommand{\mcW}{\mathcal{W}}	\newcommand{\mcX}{\mathcal{X}}
+\newcommand{\mcY}{\mathcal{Y}}	\newcommand{\mcZ}{\mathcal{Z}}
+
+
+%---------------------------------------
+% Bold Math Fonts :-
+%---------------------------------------
+
+%Captital Letters
+\newcommand{\bmA}{\boldsymbol{A}}	\newcommand{\bmB}{\boldsymbol{B}}
+\newcommand{\bmC}{\boldsymbol{C}}	\newcommand{\bmD}{\boldsymbol{D}}
+\newcommand{\bmE}{\boldsymbol{E}}	\newcommand{\bmF}{\boldsymbol{F}}
+\newcommand{\bmG}{\boldsymbol{G}}	\newcommand{\bmH}{\boldsymbol{H}}
+\newcommand{\bmI}{\boldsymbol{I}}	\newcommand{\bmJ}{\boldsymbol{J}}
+\newcommand{\bmK}{\boldsymbol{K}}	\newcommand{\bmL}{\boldsymbol{L}}
+\newcommand{\bmM}{\boldsymbol{M}}	\newcommand{\bmN}{\boldsymbol{N}}
+\newcommand{\bmO}{\boldsymbol{O}}	\newcommand{\bmP}{\boldsymbol{P}}
+\newcommand{\bmQ}{\boldsymbol{Q}}	\newcommand{\bmR}{\boldsymbol{R}}
+\newcommand{\bmS}{\boldsymbol{S}}	\newcommand{\bmT}{\boldsymbol{T}}
+\newcommand{\bmU}{\boldsymbol{U}}	\newcommand{\bmV}{\boldsymbol{V}}
+\newcommand{\bmW}{\boldsymbol{W}}	\newcommand{\bmX}{\boldsymbol{X}}
+\newcommand{\bmY}{\boldsymbol{Y}}	\newcommand{\bmZ}{\boldsymbol{Z}}
+%Small Letters
+\newcommand{\bma}{\boldsymbol{a}}	\newcommand{\bmb}{\boldsymbol{b}}
+\newcommand{\bmc}{\boldsymbol{c}}	\newcommand{\bmd}{\boldsymbol{d}}
+\newcommand{\bme}{\boldsymbol{e}}	\newcommand{\bmf}{\boldsymbol{f}}
+\newcommand{\bmg}{\boldsymbol{g}}	\newcommand{\bmh}{\boldsymbol{h}}
+\newcommand{\bmi}{\boldsymbol{i}}	\newcommand{\bmj}{\boldsymbol{j}}
+\newcommand{\bmk}{\boldsymbol{k}}	\newcommand{\bml}{\boldsymbol{l}}
+\newcommand{\bmm}{\boldsymbol{m}}	\newcommand{\bmn}{\boldsymbol{n}}
+\newcommand{\bmo}{\boldsymbol{o}}	\newcommand{\bmp}{\boldsymbol{p}}
+\newcommand{\bmq}{\boldsymbol{q}}	\newcommand{\bmr}{\boldsymbol{r}}
+\newcommand{\bms}{\boldsymbol{s}}	\newcommand{\bmt}{\boldsymbol{t}}
+\newcommand{\bmu}{\boldsymbol{u}}	\newcommand{\bmv}{\boldsymbol{v}}
+\newcommand{\bmw}{\boldsymbol{w}}	\newcommand{\bmx}{\boldsymbol{x}}
+\newcommand{\bmy}{\boldsymbol{y}}	\newcommand{\bmz}{\boldsymbol{z}}
+
+% number sets
+\newcommand{\RR}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{R}}{\mathbb{R}^{#1}}}}
+\newcommand{\NN}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{N}}{\mathbb{N}^{#1}}}}
+\newcommand{\ZZ}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{Z}}{\mathbb{Z}^{#1}}}}
+\newcommand{\QQ}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{Q}}{\mathbb{Q}^{#1}}}}
+\newcommand{\CC}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{C}}{\mathbb{C}^{#1}}}}
+\newcommand{\PP}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{P}}{\mathbb{P}^{#1}}}}
+\newcommand{\HH}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{H}}{\mathbb{H}^{#1}}}}
+\newcommand{\FF}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{F}}{\mathbb{F}^{#1}}}}
