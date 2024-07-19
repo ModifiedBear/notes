@@ -1,0 +1,63 @@
+\documentclass[letterpaper,12pt]{article}
+\input{preamble}
+
+% generics line 5: title, line 6: topic, line 7: date
+\title{Functions and Spaces}
+\topic{Mathematical Physics}
+\date{2024--Jul--18}
+
+
+
+\author{Alberto Ruiz-Biestro}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\thispagestyle{empty}
+
+\clearpage\pagestyle{fancy}
+\section{Introduction}
+
+Vector spaces and function spaces are essential to all of mathematical physics. Fortunately, most of undergrad work does not require rigorous 
+
+This is by no means a rigorous guide. There is a slight but important difference between \emph{mathematical physics} and \emph{physical mathematics}\footnote{Better told in Spanish, \emph{matemáticas físicas} vs. \emph{física matemática}}.
+
+\section{Functions}
+
+\mnote{Best approximations}{
+  The reason one uses an orthonormal basis is because adding an extra term, i.e. $g_{N+1}$, to the set of expansion coefficients, is independent of any previous terms. In a \textbf{non-orthogonal} basis, having $g_{N+1}$ requires tweaking all $N$ terms (again). However, both are able to give a \emph{best} approximation.
+}
+
+\mdef{$L^2$ convergence}{
+A sequence $\{f_n\}\in L^2$ of periodic functions is said to \emph{converge in} $L^2$ \textbf{to a function} if the sequence $\int_0^1\dd{x}\abs{f_n(x)-f(x)}^2$ converges to $0$.
+}
+
+\mdef{Parceval's theorem}{
+A sequence $\{f_n\}\in L^2$ of periodic functions is said to \emph{converge in} $L^2$ \textbf{to a function} if the sequence $\int_0^1\dd{x}\abs{f_n(x)-f(x)}^2$ converges to $0$.
+}\label{theorem:parceval}
+
+\mdef{Complete orthonormal set}{
+  \begin{outline}
+  \1 If $\qty{U_i}$ spans a dense subset of the entire Hilbert space $V$, then it is a \textbf{complete orthonormal set}.
+
+  \1 This gives an \textbf{arbitrarily close} approximation to $f(x)\in V$.
+
+  \1 Leads to 
+  \[\norm{f}^2=\sum_{n}^\infty\abs{a_n}^2\iff\,L^2\qq{convergence}\]
+  and \ref{theorem:parceval}.
+\end{outline}
+}
+
+\subsection{Dirac delta function}
+
+The the \emph{Dirac delta function} is not a function, and it was introduced (although not in its current form) by Fourier and later by Cauchy (as an infinitesimal form of a Cauchy distribution). However, it was Dirac who gave it its analogous meaning to \emph{Kronecker's delta}, and its proper introduction to quantum mechanics. Field's medalist Laurent Schwartz gave the $\delta$-distribution its meaning and rigour. 
+
+Consider the approximation to $\delta$, which we name $\delta_\epsilon$. 
+
+This issue of convergence leads to an issue with the $\delta_\epsilon$ function. Since the $L^2$ norm $\norm{\delta_\epsilon}\rightarrow\infty$ as $\epsilon\rightarrow 0$, it cannot be in $L^2$.
+
+\mnote{}{
+  Since elements of $L^2$ are in reality \emph{equivalence classes} of functions, $f(0)$ is undefined, and thus the paring $(\delta,f)=f(0)$ is doomed to fail for an arbitrary $f\in L^2$.
+}
+
+\end{document}

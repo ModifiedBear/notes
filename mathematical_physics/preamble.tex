@@ -35,6 +35,7 @@
 \newcommand{\mprop}[2]{\begin{Prop}{#1}{}#2\end{Prop}}
 \newcommand{\mtip}[2]{\begin{Tip}{#1}{}#2\end{Tip}}
 \newcommand{\mnote}[2]{\begin{Note}{#1}{}#2\end{Note}}
+\newcommand{\mdef}[2]{\begin{Def}{#1}{}#2\end{Def}}
 \newcommand{\mrem}[2]{\begin{Remark}{#1}{}#2\end{Remark}}
 \newcommand{\mexam}[2]{\begin{Example}{#1}{}#2\end{Example}}
 
@@ -75,6 +76,30 @@
 \definecolor{wongBlue}{RGB}{000,114,178}
 \definecolor{wongVermillion}{RGB}{213,094,000}
 \definecolor{wongGreen}{RGB}{000,158,115}
+
+%================================
+% DEFINITION 
+%================================
+
+\tcbuselibrary{theorems,skins,hooks}
+\newtcbtheorem[number within=section]{Def}{Def}
+{%
+	enhanced,
+	breakable,
+	colback = wongVermillion!10!white,
+	frame hidden,
+	boxrule = 0sp,
+	borderline west = {2pt}{0pt}{wongVermillion!90!black},
+	sharp corners,
+	detach title,
+	before upper = \tcbtitle\par\smallskip,
+	coltitle = wongVermillion!60!black,
+	fonttitle = \bfseries\sffamily,
+	description font = \mdseries,
+	separator sign none,
+	segmentation style={solid, wongVermillion!90!black},
+}
+{th}
 
 %================================
 % NOTE

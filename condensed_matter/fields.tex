@@ -101,8 +101,38 @@ Variating by hand will usually require the following identity,
   \end{outline}
 }
 
+\mtip{Curl}{Curl curl identity 
+\[\curl(\frac{1}{2})\]}
+
 \subsection{Electrodynamics}
 More fundamental than Maxwell's equations, for modern electrodynamics, is the concept of \textbf{symmetry}; an electromagnetic theory must be Lorenz invariant. We restrict our analysis to vacuum theory, where $\vb{E}=\vb{D}$ and $\vb{B}=\vb{H}$.
+
+The Lagrangian (or \emph{action density}) that gives rise to Maxwell's equations is
+\begin{equation}
+  \boxed{\mcS=(\varphi,\varphi_\mu)=\frac{1}{2}\qty(\dot{\vb{A}}\cdot{\dot{\vb{A}}}-\abs{\curl{A}}^2)}.
+\end{equation}
+The terms follow a similar relation to $T-U$. Should there be an external current, the Lagrangian includes an additional source term
+
+% TODO: axial gauge
+
+% the axial gauge does not completely fix the gauge
+\mnote{Gauge fixing}{It means removing the freedom one has in specifying the four-vector potential $A_\mu$, i.e. the axial-gauge and Lorenz gauge, $n_\mu{A^\mu}=0$ and $\partial_\mu A^\mu$, do not completely fix the gauge.}
+
+\mrem{Contravariant and Covariant}{
+Consider a change of basis from $\vb{e}\rightarrow\vb{e}'$, where $\vb{e},\vb{e}'\in V$, given by
+\[\boxed{\vb{e}_\nu=a_\nu^\mu\vb{e}'_\mu}.\]
+\centering
+    \begin{tabular}{l | c | c}
+      \hline\hline
+      & \textbf{Covariant} & \textbf{Contravariant}\\
+      \hline
+      Elements & covectors $\vb{f}\in V^*$ & vectors $\vb{x}\in V$\\
+      Transformation & $f_\nu=a_\nu^\mu {f'}_\mu$ & ${x'}^\mu=a_\nu^\mu x^\nu\qq{i.e.} x^\nu=(a_\nu^\mu)^{-1}{x'}^\mu$\\
+      Derivative & $\partial_{\mu}=(+\partial_t,\grad)$ & $\partial^{\mu}=(-\partial_t,\grad)$
+    \end{tabular}
+
+
+}
 
 \section{Quantizing fields}
 
