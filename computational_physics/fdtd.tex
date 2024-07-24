@@ -1,0 +1,106 @@
+\documentclass[letterpaper,12pt]{article}
+\input{preamble}
+\usepackage[numbers,sort]{natbib}
+\usepackage{diagbox}
+\bibliographystyle{unsrtnat}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\newcommand{\algorithmautorefname}{Algorithm}
+
+% generics line 5: title, line 6: topic, line 7: date
+\title{Numerical Methods}
+\topic{Computational Physics}
+\date{\today}
+
+
+
+\author{Alberto Ruiz-Biestro}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\thispagestyle{empty}
+
+\clearpage\pagestyle{fancy}
+\section{Finite Difference Methods}
+A great resource for finite difference methods is the book by \citet{smith1985numerical}. Almost all of the information and methods can be traced back to that book.
+
+\subsection{Wave Equation}
+Hyperbolic equations are generally the description of vibrational problems. The (scalar) wave equation is the model hyperbolic equation,
+\begin{equation}
+  \pdv[2]{u}{t}-c^2\Delta u=f,
+\end{equation}
+where $c$ is the speed determined by the medium and $f$ is a source. Considering the homogeneous version of the previous equation. It will be useful to write it in operator form,
+\begin{equation}
+  D^2_t u - c^2\qty(D^2_x + D^2_y + D^2_z )u=0.
+\end{equation}
+We proceed as usual in discretizing the derivatives with a \emph{centered differences scheme} that has an error $\order{(h^2)^n}$. Our description of said equation will be at gridpoints $(p\,h,q_i\,k)$, with $h$ being the time step and $k$ the spatial step size\footnote{It need not be the same, but the discretization takes a more complicated form (non uniform grids)}. It will be useful to realize that a (cartesian) centered difference scheme has a general form of a sum of the value of the field at a set of gridpoints $\{x_i\}$ times a set of weights $\{w_i\}$,
+\begin{equation}
+  D_x u\Rightarrow \frac{1}{k_x}\qty(\dots +w_{i-1} u_{i-1}+ w_{i} u_{i} + w_{i+1} u_{i+1}+\dots),
+\end{equation}
+From \href{https://en.wikipedia.org/wiki/Finite_difference_coefficient}{Wikipedia} one gets the required weights for a second order derivative (see \autoref{tab:weights}).
+
+\begin{table}[h!]
+\centering
+\caption{Weights for discretized $\pdv*[2]{x}$, with error $O(h^n)$ at grid index.}\label{tab:weights}
+\begin{tabular}{|r|c|c|c|c|c|c|c|}
+\hline
+\diagbox{$n$}{idx}&$-3$&$-2$&$-1$&$0$&$1$&$2$&$3$\\\hline
+2 &         &           & $1$       & $-2$       & $1$       &           &         \\\hline
+4 &         & $-1/12$   & $16/12$   & $-30/12$   & $16/12$   & $-1/12$   &         \\\hline
+6 & $2/180$ & $-27/180$ & $270/180$ & $-490/180$ & $270/180$ & $-27/180$ & $2/180$ \\\hline
+\end{tabular}
+\end{table}
+\subsubsection{2D operator}
+Discretizing a cartesian operator in a cartesian grid translates into summing the respective weights in distinct axes, since $\Delta=\sum_j\pdv*[2]{x_j}$. For example, for our two dimensional $D^2_x+D^2_y$, an approximation of $\order{h^2}$\footnote{Also known as a 5-point lattice} requires the sum of $[1,-2,1]$ and $[1,2,1]^T$. One finds the 2D version of the discretized wave equation to be,
+\begin{equation}
+  \frac{1}{h^2}\qty(u_{i,j}^{t-1}-2u_{i,j}^{t}+u_{i,j}^{t+1})-\frac{c^2}{h^2}\qty(\underbrace{\mqty[0& 1 & 0\\1&-4&1\\0&1&0]}_{\vb{D}^2}\vdot\mqty[ & u^t_{i,j+1} & \\ u^t_{i-1,j} & u^t_{i,j} & u^t_{i+1,j}\\& u^t_{i,j-1} &] )=0,
+\end{equation}
+where $\vdot$ implies the dot product. Alternatively, one calls the spatial discretization operator $\vb{D}^2$ and thus writes its product as $\vb{D}^2\vdot\vb{u}$. This expression already hints at the fact that one effectively \emph{convolves} the operator $\vb{D}^2$ with the lattice points, $\vb{D}^2\ast [u]^t$. This is what's done usually in image filters and graphics processing, and what is described in \autoref{alg:wave}.
+
+Solving for $u^{t+1}$, one finds
+\begin{equation}
+  u_{i,j}^{t+1}=\alpha^2\qty(\vb{D}^2\vdot \vb{u})+2u_{i,j}^t - u_{i,j}^{t-1},
+\end{equation}
+where $\alpha\equiv ch/k$. One has the freedom of choosing each approximation's error, whether to use more coefficients for $D_t^2$ or for $\vb{D}^2$, or even take it to an $N-$dimensional routine by using a general tensor form of $\vb{D}^2$. One also notices that exchanging $u_{i,j}^{t+1}\leftrightarrow u_{i,j}^{t-1}$ has no effect whatsoever in the final expression.
+
+As with all centered differences, one can kick-start the time-stepping through an explicit Euler scheme,
+\[u_{i,j}^{t+1}=u_{i,j}^t+h(c^2\vb{D}^2\vdot \vb{u}),\]
+which just implies having to state the initial conditions for $u_{i,j}^{(0)}$ and $u_{i,j}^{(-1)}$ (should one start at $t=0$).
+ 
+Adding a source $f$ requires no further changes other than adding its value $f_{i,j,k}$ at time $t$. The algorithm for the time evolution of the wave equation in a domain $\Omega$, assuming a Dirichlet boundary conditions, and $V$ to be the initial perturbation, can be seen in \autoref{alg:wave}.
+
+\begin{algorithm}
+  \caption{FDTD for wave equation}\label{alg:wave}
+  \begin{algorithmic}
+    \State $u^{t-1}\gets 0$
+    \State $u^{t}\gets V$
+    \State $u^{t+1}\gets 0$
+    \While{$N<N_{\rm max}$}
+    \State $u^{t+1}=\alpha^2(\vb{D}^2\ast u^t)+2u^t-u^{t-1}$
+    \State ${u}^{t+1}(\vb{r}\in\partial \Omega) = 0$\Comment{Enforce Dirichlet B.C.}
+    \State $u^{t-1}\gets u^t$
+    \State $u^{t}\gets u^{t+1}$ \Comment{Update fields}
+    \EndWhile
+  \end{algorithmic}
+\end{algorithm}
+\subsubsection{Image filters}
+% Image filters have a long history of development, 
+Using an image filtering library has the advantage of an easy implementation of periodic boundary conditions. In Julia, such function is given by \texttt{imfilter(im,ker,"circular")}. Furthermore, it allows generalization to $N$ dimensions, which makes it easy to read and work with. However, such operations can get expensive memory-wise, which is why it might also be recommended to use \texttt{for} loops. For Julia, this is no issue, since \texttt{for} loops should be as fast as Fortran code.
+
+\bibliography{fdtd.bib}
+
+\subsection{Ginzburg-Landau equation}
+Ignoring some stability issues with the centered difference method outlined before, once we discretize the $\Delta$ operator, we can apply it to any other equation. Consider the equation
+\begin{equation}
+  \pdv{\phi}{t}=\phi-\abs{\phi}^2\phi+\Delta\phi,
+\end{equation}
+where we define $f(\phi)\equiv\phi-|\phi|^2\phi$ for convenience. Using a simple Euler approximation
+\[\frac{1}{h}\qty(\phi_{i,j}^{t-1}-2\phi_{i,j}^t+\phi_{i,j}^{t+1})=f_{i,j}^t+\frac{1}{k^2}(\vb{D}^2\ast \phi)_{i,j}^t\]
+
+\subsection{Crank-Nicholson method}
+\section{Boundary-Wall method}
+\subsection{BWM for Schr\"odinger's equation}
+\subsection{BWM for other equations}
+
+\end{document}

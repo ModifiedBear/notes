@@ -12,9 +12,9 @@ filename=$1.tex
 filedir=$cudir/$2
 curdate=$(date '+%Y--%b--%d')
 my_title=$3
-latex_title="\title{$4}"
-latex_topic="\topic{$3}"
-latex_date="\date{$curdate}"
+latex_title='\\title{'$4'}'
+latex_topic='\\topic{$3}'
+latex_date='\\date{$curdate}'
 # cp -v cudir
 echo " "
 echo "Running script"
@@ -33,6 +33,7 @@ fi
 cp -v ./templates/template.tex $filedir/$filename
 cp -v ./templates/preamble.tex $filedir/preamble.tex
 
+echo $latex_title
 sed -i '5i'$latex_title $filedir/$filename 
 sed -i '6i'$latex_topic $filedir/$filename 
 sed -i '7i'$latex_date  $filedir/$filename 
